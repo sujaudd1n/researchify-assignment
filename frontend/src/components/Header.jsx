@@ -2,9 +2,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export default function Header({ name, messageCount, notificationCount }) {
     return (
-        <header className=" border border-foreground p-4 rounded-lg shadow-sm flex flex-col justify-between gap-5 md:flex-row">
+        <header className=" border border-foreground p-5 rounded-xl shadow-sm flex flex-col justify-between gap-5 md:flex-row">
             <div className="flex items-center gap-4">
-                <Avatar className="w-16 h-15">
+                <Avatar className="w-16 h-16">
                     <AvatarImage src="https://github.com/shadcn.png" />
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
