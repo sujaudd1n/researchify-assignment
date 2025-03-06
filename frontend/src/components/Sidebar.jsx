@@ -46,7 +46,7 @@ export default function Sidebar({ collapsed, toggleSidebar }) {
 
         {!collapsed && (
           <p className="text-xs text-gray-600 mt-4">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s.
           </p>
         )}
 

@@ -17,7 +17,11 @@ export default function Header({ name, messageCount, notificationCount }) {
 
             <div className="flex flex-col text-sm max-w-[300px]">
                 <div className="flex">
-                    <ProfileGroup />
+                    <ProfileGroup size={10} profiles={[
+                        { url: "https://github.com/shadcn.png", alt: 'su' },
+                        { url: "https://github.com/shadcn.png", alt: 'su' },
+                        { url: "https://github.com/shadcn.png", alt: 'su' },
+                    ]} />
                     <p className="self-end">...</p>
                     <span className="ml-auto text-xs p-1 py-1 self-center border rounded">@ {notificationCount}</span>
                 </div>
@@ -27,26 +31,17 @@ export default function Header({ name, messageCount, notificationCount }) {
     );
 }
 
-function ProfileGroup() {
-    const size = 10;
+export function ProfileGroup({ size, profiles }) {
+    console.log(profiles)
     return (
         <div className="flex -space-x-2 mr-2">
-            <Avatar className={`w-${size}10 h-${size}`}>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-            <Avatar className={`w-${size}10 h-${size}`}>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-            <Avatar className={`w-${size}10 h-${size}`}>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-            <Avatar className={`w-${size}10 h-${size}`}>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
+            {profiles.map((profile, idx) => (
+                <Avatar key={idx} className={`w-${size}10 h-${size}`}>
+                    <AvatarImage src={profile.url} />
+                    <AvatarFallback>{profile.alt}</AvatarFallback>
+                </Avatar>
+            ))}
+
         </div>
     )
 }
