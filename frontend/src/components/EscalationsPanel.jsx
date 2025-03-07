@@ -28,7 +28,7 @@ export default function EscalationsPanel() {
     <div className="border border-foreground p-4 rounded-xl">
       <h2 className="text-2xl font-semibold mb-4">
         Escalations
-        <span className="ml-2 text-yellow-500">⚠️</span>
+        <span className="ml-2 text-sm text-yellow-500">⚠️</span>
       </h2>
       <div className="space-y-2 h-[200px] overflow-auto">
         {escalations.map((escalation, index) => (

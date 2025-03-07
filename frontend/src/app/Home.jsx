@@ -7,6 +7,7 @@ import Sidebar from '@/components/Sidebar';
 import GroupsPanel from '@/components/GroupsPanel';
 import TasksPanel from '@/components/TasksPanel';
 import EscalationsPanel from '@/components/EscalationsPanel';
+import InsightsPanel from '@/components/InsightsPanel';
 
 export default function Home() {
   const [collapsed, setCollapsed] = useState(false);
@@ -22,13 +23,13 @@ export default function Home() {
           collapsed={collapsed}
           toggleSidebar={() => { setCollapsed(!collapsed) }}
         />
-        <div className='w-full'>
+        <div className='w-full flex flex-col'>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 justify-between">
             <GroupsPanel />
             <TasksPanel />
             <EscalationsPanel />
           </div>
-
+          <InsightsPanel />
         </div>
       </div>
     </div>
