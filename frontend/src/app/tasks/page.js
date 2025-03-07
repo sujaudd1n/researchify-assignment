@@ -1,9 +1,9 @@
-import InsightsPanel from "@/components/InsightsPanel"
+import TasksPanel from "@/components/TasksPanel"
 
 export default function Page() {
     return (
         <div className='flex grow flex-col'>
-            <InsightsPanel />
+            <TasksPanel />
         </div>
     )
 }

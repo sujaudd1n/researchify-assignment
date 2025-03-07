@@ -1,7 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import { ProfileGroup } from "./Header";
+import { usePathname } from "next/navigation";
 
 export default function TasksPanel() {
+  const pathname = usePathname();
   const tasks = [
     {
       title: "Finish the UI and ask Animesh",
@@ -40,9 +44,9 @@ export default function TasksPanel() {
   ];
 
   return (
-    <div className="border border-foreground p-4 rounded-xl">
+    <div className="border grow border-foreground p-4 rounded-xl">
       <h2 className="text-2xl font-semibold mb-4">Tasks</h2>
-      <div className="space-y-2 h-[200px] overflow-auto">
+      <div className={`space-y-2 ${pathname === '/tasks' ? '' : 'h-[200px]'} overflow-auto`}>
         {tasks.map((task, index) => (
           <div
             key={index}
@@ -59,7 +63,7 @@ export default function TasksPanel() {
 
               {task.contributors.length > 0 && (
                 <div className="flex mt-2">
-                  <ProfileGroup profiles={task.contributors.map(contributor => { contributor.url = contributor.profilePic; return contributor; })} />
+                  <ProfileGroup size={6} profiles={task.contributors.map(contributor => { contributor.url = contributor.profilePic; return contributor; })} />
                 </div>
               )}
             </div>
