@@ -5,6 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import ChatInterface from "./ChatInterface";
 import { Maximize2 } from "lucide-react";
 
 export default function InsightsPanel() {
@@ -22,7 +23,7 @@ export default function InsightsPanel() {
 
       <div className="mb-4">
         <Select>
-          <SelectTrigger className="w-[150px]">
+          <SelectTrigger className="border-foreground w-[150px]">
             <SelectValue placeholder="All Groups" />
           </SelectTrigger>
           <SelectContent>
@@ -32,6 +33,7 @@ export default function InsightsPanel() {
           </SelectContent>
         </Select>
       </div>
+      <ChatInterface />
     </div>
   );
 }

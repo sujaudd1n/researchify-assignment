@@ -8,8 +8,8 @@ import { HandHelping } from "lucide-react";
 
 export default function Sidebar({ collapsed, toggleSidebar }) {
   return (
-    <aside className={`p-5 border border-foreground rounded-xl ${collapsed ? 'w-32' : 'w-64'} transition-all duration-300`}>
-      <span className="w-28 "></span>
+    <aside className={`p-5 border border-foreground rounded-xl ${collapsed ? 'w-32' : 'w-[400px]'} transition-all duration-300`}>
+      <span className="w-28 w-68"></span>
       <div className="flex p-2 justify-between items-center">
         <h2 className={`${collapsed ? 'hidden' : 'block'} text-2xl font-semibold`}>Menu</h2>
         <button onClick={toggleSidebar}>
