@@ -1,3 +1,5 @@
+"use client";
+
 import { CircleHelp, Pencil, Send, User } from 'lucide-react';
 import { useState } from 'react';
 import { Input } from './ui/input';
