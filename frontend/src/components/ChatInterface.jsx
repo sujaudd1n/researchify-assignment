@@ -5,8 +5,9 @@ import { useState } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 
-export default function ChatInterface() {
+export default function ChatInterface({ }) {
   const [message, setMessage] = useState('');
+  const user = true;
 
   const quickQuestions = [
     { icon: <Pencil />, text: "what are my tasks due today?" },
@@ -27,7 +28,9 @@ export default function ChatInterface() {
         {quickQuestions.map((question, index) => (
           <button
             key={index}
-            className="max-w-[200px] border border-foreground rounded-lg p-3 text-left hover:bg-gray-100 transition-colors"
+            disabled={user ? false : true}
+            className={`${user ? '' : 'border-gray-200 text-gray-500 hover:bg-white'} max-w-[200px] border border-foreground rounded-lg p-3 text-left hover:bg-gray-100 transition-colors`}
+            onClick={() => { setMessage(question.text) }}
           >
             <div className="text-lg mb-1">{question.icon}</div>
             <div className="">"{question.text}"</div>
@@ -38,15 +41,18 @@ export default function ChatInterface() {
       <div className="flex items-center">
         <Input
           type="text"
-          placeholder="Ask me anything about the group conversations..."
+          disabled={user ? false : true}
+          placeholder={user ? "Ask me anything about the group conversations..." : "Please sign in to chat"}
           className="flex-1 border border-foreground rounded-lg px-4 py-3 mr-2 focus:outline-none "
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
-        <Button variant="outline" size="icon" className="border-foreground">
+        <Button variant="outline" size="icon" className="border-foreground"
+          disabled={user ? false : true}
+        >
           <Send />
         </Button>
       </div>
-    </div>
+    </div >
   );
 }
