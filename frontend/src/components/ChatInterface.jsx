@@ -1,6 +1,6 @@
 "use client";
 
-import { CircleHelp, Pencil, Send, User } from 'lucide-react';
+import { CircleHelp, LoaderCircle, Pencil, Send, User } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
@@ -25,6 +25,7 @@ const quickQuestions = [
 export default function ChatInterface({ user }) {
   const [messages, setMessages] = useState(msgs);
   const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
   const chatRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -37,19 +38,37 @@ export default function ChatInterface({ user }) {
   }, [messages]);
 
   async function messageSubmit() {
+    setLoading(true);
     let new_messages = [...messages, { text: input, is_user_message: true }];
     setMessages(new_messages);
     setInput('');
     const response = await get_bot_response(input);
     new_messages = [...new_messages, { text: response, is_user_message: false }];
     setMessages(new_messages);
-    console.log(chatRef.current)
+    setLoading(false);
   }
 
-  async function get_bot_response(prompt) {
-    await new Promise(resolve => { setTimeout(resolve, 2000) })
-    return "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-
+  async function get_bot_response(input) {
+    await new Promise(resolve => { setTimeout(resolve, 6000) })
+    const idToken = await user.getIdToken();
+    try {
+      const res = await fetch("http://localhost:8000/api/v1/chats", {
+        method: "post",
+        headers: {
+          Authorization: `Bearer ${idToken}`
+        },
+        body: JSON.stringify({ message: input })
+      })
+      if (res.ok) {
+        const data = await res.json();
+        return data.message;
+      }
+      return "<error>"
+    }
+    catch (err) {
+      console.log(err);
+      return "<error>"
+    }
   }
 
 
@@ -99,18 +118,19 @@ export default function ChatInterface({ user }) {
         <Input
           ref={inputRef}
           type="text"
-          disabled={user ? false : true}
+          disabled={user && !loading ? false : true}
           placeholder={user ? "Ask me anything about the group conversations..." : "Please sign in to chat"}
           className="flex-1 border border-foreground rounded-lg px-4 py-3 mr-2 focus:outline-none "
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyPress={(e) => { e.key === 'Enter' && messageSubmit() }}
+          onKeyPress={(e) => { e.key === 'Enter' && !loading && messageSubmit() }}
         />
         <Button variant="outline" size="icon" className="border-foreground"
           onClick={messageSubmit}
-          disabled={user ? false : true}
+          disabled={user && !loading ? false : true}
         >
-          <Send />
+
+          {loading ? <LoaderCircle className="animate-spin" /> : <Send />}
         </Button>
       </div>
     </>

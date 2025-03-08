@@ -12,7 +12,7 @@ class User(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     def to_json(self):
         return {
             "name": self.name,
@@ -39,13 +39,9 @@ class Group(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     def to_json(self):
-        return {
-            "name": self.name,
-            "icon": self.icon,
-            "user_count": self.user_count
-        }
+        return {"name": self.name, "icon": self.icon, "user_count": self.user_count}
 
 
 class Task(models.Model):
@@ -60,9 +56,8 @@ class Task(models.Model):
         return {
             "title": self.title,
             "is_important": self.is_important,
-            "assigned_to": [user.to_json() for user in self.assigned_to.all()]
+            "assigned_to": [user.to_json() for user in self.assigned_to.all()],
         }
-    
 
 
 class Escalation(models.Model):
@@ -82,8 +77,9 @@ class Escalation(models.Model):
             "title": self.title,
             "subtitle": self.subtitle,
             "is_important": self.is_important,
-            "created_by": self.created_by.to_json()
+            "created_by": self.created_by.to_json(),
         }
+
 
 class UserChat(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

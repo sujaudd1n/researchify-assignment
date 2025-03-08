@@ -52,27 +52,35 @@ class Command(BaseCommand):
             firebase_uid="Animesh29034234",
             name="Animesh",
             photo="https://picsum.photos/id/12/200/300",
-            email="mail@example.com"
+            email="mail@example.com",
         )
         user2, created = User.objects.get_or_create(
             firebase_uid="Sagar2525213",
             name="Sagar Sk",
             photo="https://picsum.photos/id/13/200/300",
-            email="mail@example.com"
+            email="mail@example.com",
         )
         user3, created = User.objects.get_or_create(
             firebase_uid="random23452",
             name="User Green",
             photo="https://picsum.photos/id/17/200/300",
-            email="mail@example.com"
+            email="mail@example.com",
         )
 
         # tasks data
         tasks_data = [
             {"title": "Finish the UI and ask Animesh", "is_important": False},
-            {"title": "Fix bugs 🔥", "is_important": True, "assigned_to": [user1, user2]},
+            {
+                "title": "Fix bugs 🔥",
+                "is_important": True,
+                "assigned_to": [user1, user2],
+            },
             {"title": "Test the dev release to make 🧊", "is_important": False},
-            {"title": "Code is messed up, catch cant catch the error", "is_important": True, "assigned_to": [user3]},
+            {
+                "title": "Code is messed up, catch cant catch the error",
+                "is_important": True,
+                "assigned_to": [user3],
+            },
         ]
 
         for task_data in tasks_data:
@@ -84,13 +92,21 @@ class Command(BaseCommand):
                     task.assigned_to.add(user)
         self.stdout.write(self.style.SUCCESS("loaded tasks data"))
 
-
         escalations_data = [
-            {"title": "There is an issue with this", "subtitle": "Alpha", "created_by": user1},
-            {"title": "There is an issue with that", "subtitle": "Beta", "is_important": True, "created_by": user3},
+            {
+                "title": "There is an issue with this",
+                "subtitle": "Alpha",
+                "created_by": user1,
+            },
+            {
+                "title": "There is an issue with that",
+                "subtitle": "Beta",
+                "is_important": True,
+                "created_by": user3,
+            },
             {"title": "X is not working", "subtitle": "Sigma", "created_by": user2},
             {"title": "Timing Issue", "subtitle": "IDK", "created_by": user3},
-            {"title": "Escalation 123", "subtitle": "IDK2", "created_by": user1}
+            {"title": "Escalation 123", "subtitle": "IDK2", "created_by": user1},
         ]
 
         for escalation_data in escalations_data:
