@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.views import View
 from .models import *
 
 def get_objects(model):
@@ -8,15 +9,17 @@ def get_objects(model):
     return response_data
 
 def get_groups(request):
-    # groups = Group.objects.all()
-    # response_data = [group.to_json() for group in groups]
     return JsonResponse({"data": get_objects(Group)})
 
 def get_tasks(request):
-    # tasks = Task.objects.all()
-    # response_data = [task.to_json() for task in tasks]
-    # return JsonResponse({"data": response_data})
     return JsonResponse({"data": get_objects(Task)})
 
 def get_escalations(request):
     return JsonResponse({"data": get_objects(Escalation)})
+
+class Chat(Views):
+    def get(self, request, *args, **kwargs):
+        pass
+
+    def post(self, request, *args, **kwargs):
+        pass

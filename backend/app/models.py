@@ -84,5 +84,15 @@ class Escalation(models.Model):
             "is_important": self.is_important,
             "created_by": self.created_by.to_json()
         }
+
+class UserChat(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField()
+    is_user_message = models.BooleanField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user} - {self.text}"
+
     
 
