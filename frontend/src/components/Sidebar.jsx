@@ -11,10 +11,26 @@ import {
   TrendingUp,
   Pencil
 } from "lucide-react";
+import { auth } from "@/lib/firebase";
+import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 
-export default function Sidebar({ collapsed, toggleSidebar }) {
+function handle_sign_in() {
+  const provider = new GoogleAuthProvider();
+  signInWithPopup(auth, provider)
+    .then(result => { console.log("SignIn succeeded.") })
+    .catch(err => { console.log("SignIn Failed.") })
+}
+
+function handle_sign_out() {
+  signOut(auth);
+}
+
+export default function Sidebar({ user, setUser, collapsed, toggleSidebar }) {
+  // onAuthStateChanged(auth, (authUser) => {
+  //   console.log(authUser)
+  //   setUser(authUser)
+  // })
   const pathname = usePathname();
-  console.log(pathname)
   const urls = [
     { name: "Dashboard", path: "/", icon: <LayoutDashboard className="mr-2" />, notificationCount: 2, disabled: false },
     { name: "Insights", path: "/insights", icon: <TrendingUp className="mr-2" />, notificationCount: 0, disabled: false },
@@ -61,7 +77,12 @@ export default function Sidebar({ collapsed, toggleSidebar }) {
 
       <div className="mt-auto p-4 whitespace-nowrap">
         <a href="#" className="block py-2 text-gray-700 hover:text-gray-900">FAQs</a>
-        <a href="#" className="block py-2 text-red-600 hover:text-red-800">Log Out</a>
+        {!user &&
+          <button onClick={handle_sign_in} href="#" className="block py-2 text-red-600 hover:text-red-800">SignIn</button>
+        }
+        {user &&
+          <button onClick={handle_sign_out} className="block py-2 text-red-600 hover:text-red-800">SignOut</button>
+        }
       </div>
     </aside >
   );
