@@ -104,6 +104,7 @@ export default function ChatInterface({ user }) {
           className="flex-1 border border-foreground rounded-lg px-4 py-3 mr-2 focus:outline-none "
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          onKeyPress={(e) => { e.key === 'Enter' && messageSubmit() }}
         />
         <Button variant="outline" size="icon" className="border-foreground"
           onClick={messageSubmit}
