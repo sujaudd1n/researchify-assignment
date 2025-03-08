@@ -66,7 +66,7 @@ export default function ChatInterface({ user }) {
 
   async function messageSubmit() {
     setLoading(true);
-    let new_messages = [...messages, { text: input, is_user_message: true }];
+    let new_messages = [...messages, { text: input, is_user_message: true, timestamp: new Date().toISOString() }];
     setMessages(new_messages);
     setInput('');
     const response = await get_bot_response(input);
@@ -100,7 +100,7 @@ export default function ChatInterface({ user }) {
 
 
   return (
-    <>
+    <div className='mt-auto'>
       {
         (!Boolean(messages.length) || !user) &&
         <>
@@ -163,6 +163,6 @@ export default function ChatInterface({ user }) {
           {loading ? <LoaderCircle className="animate-spin" /> : <Send />}
         </Button>
       </div>
-    </>
+    </div>
   );
 }

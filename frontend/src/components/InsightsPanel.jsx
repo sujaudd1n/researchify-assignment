@@ -29,7 +29,7 @@ export default function InsightsPanel() {
         </button>
       </div>
 
-      <div className="mb-4 mt-auto">
+      <div className="mb-4">
         <Select>
           <SelectTrigger className="border-foreground w-[150px]">
             <SelectValue placeholder="All Groups" />
