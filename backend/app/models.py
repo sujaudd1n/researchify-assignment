@@ -33,6 +33,13 @@ class Group(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def to_json(self):
+        return {
+            "name": self.name,
+            "icon": self.icon,
+            "user_count": self.user_count
+        }
 
 
 class Task(models.Model):
