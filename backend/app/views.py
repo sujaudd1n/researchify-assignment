@@ -17,3 +17,6 @@ def get_tasks(request):
     # response_data = [task.to_json() for task in tasks]
     # return JsonResponse({"data": response_data})
     return JsonResponse({"data": get_objects(Task)})
+
+def get_escalations(request):
+    return JsonResponse({"data": get_objects(Escalation)})

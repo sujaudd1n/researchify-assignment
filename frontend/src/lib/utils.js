@@ -7,32 +7,29 @@ export function cn(...inputs) {
 
 const ENDPOINT = "http://localhost:8000/api/v1/"
 
-export async function get_groups() {
+export async function get_resource(name) {
   try {
-    const res = await fetch(ENDPOINT + "groups");
+    const res = await fetch(ENDPOINT + name);
     if (!res.ok)
       return []
     const data = await res.json();
-    const groups = data.data;
-    return groups;
+    const resource = data.data;
+    return resource;
   }
   catch (err) {
     console.log(err)
-    return []
+    return [];
   }
 }
 
+export async function get_groups() {
+  return await get_resource("groups");
+}
+
 export async function get_tasks() {
-  try {
-    const res = await fetch(ENDPOINT + "tasks");
-    if (!res.ok)
-      return []
-    const data = await res.json();
-    const tasks = data.data;
-    return tasks;
-  }
-  catch (err) {
-    console.log(err)
-    return []
-  }
+  return await get_resource("tasks");
+}
+
+export async function get_escalations() {
+  return await get_resource("escalations");
 }

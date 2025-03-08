@@ -68,6 +68,7 @@ class Task(models.Model):
 class Escalation(models.Model):
     title = models.CharField(max_length=256)
     subtitle = models.CharField(max_length=32)
+    is_important = models.BooleanField(default=False)
     created_by = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="created_escalations"
     )
@@ -75,3 +76,13 @@ class Escalation(models.Model):
 
     def __str__(self):
         return self.title
+
+    def to_json(self):
+        return {
+            "title": self.title,
+            "subtitle": self.subtitle,
+            "is_important": self.is_important,
+            "created_by": self.created_by.to_json()
+        }
+    
+

@@ -32,11 +32,10 @@ export default function Header({ name, messageCount, notificationCount }) {
 }
 
 export function ProfileGroup({ size, profiles }) {
-    console.log(profiles)
     return (
         <div className="flex -space-x-2 mr-2">
             {profiles.map((profile, idx) => (
-                <Avatar key={idx} className={`w-${size}10 h-${size}`}>
+                <Avatar key={idx} className={`w-${size}10 h-${size}`} title={profile.name}>
                     <AvatarImage src={profile.url} />
                     <AvatarFallback>{profile.alt}</AvatarFallback>
                 </Avatar>

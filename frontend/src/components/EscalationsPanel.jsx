@@ -1,7 +1,23 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { get_escalations } from "@/lib/utils";
+import Link from "next/link";
 
 export default function EscalationsPanel() {
-  const escalations = [
+  const [escalations, setEscalations] = useState([]);
+
+  useEffect(() => {
+    async function f() {
+      const escalations = await get_escalations();
+      console.log(escalations)
+      setEscalations(escalations);
+    }
+    f();
+  }, [])
+
+  const e = [
     {
       title: "Channel the playground is",
       user: {
@@ -30,23 +46,25 @@ export default function EscalationsPanel() {
         Escalations
         <span className="ml-2 text-sm text-yellow-500">⚠️</span>
       </h2>
-      <div className="space-y-2 h-[200px] overflow-auto">
+      <div className="flex flex-col gap-2 h-[200px] overflow-auto">
         {escalations.map((escalation, index) => (
-          <div
+          <Link
             key={index}
-            className={`p-2 rounded-lg ${escalation.highlight ? 'bg-red-100 ' : 'bg-gray-100'}`}
+            href="#"
+            className={`p-2 rounded-lg ${escalation.is_important ? 'bg-red-100 ' : 'bg-gray-100'} hover:bg-gray-200`}
           >
             <div>
-              <div>{escalation.title}</div>
+              <p className="text-[10px] text-gray-500 underline">{escalation.subtitle}</p>
+              <p>{escalation.title}</p>
               <div className="flex items-center mt-2">
-                <Avatar className="w-4 h-4 mr-1">
-                  <AvatarImage src={escalation.user.profilePic} />
-                  <AvatarFallback>{escalation.user.name.slice(0, 2)}</AvatarFallback>
+                <Avatar className="w-4 h-4 mr-1" title={escalation.created_by.name}>
+                  <AvatarImage src={escalation.created_by.photo} />
+                  <AvatarFallback>{escalation.created_by.name.slice(0, 2)}</AvatarFallback>
                 </Avatar>
-                <span className="text-xs text-gray-500">{escalation.user.name}</span>
+                <span className="text-xs text-gray-500">{escalation.created_by.name}</span>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div >

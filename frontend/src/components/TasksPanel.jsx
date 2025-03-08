@@ -22,11 +22,11 @@ export default function TasksPanel() {
   return (
     <div className="border grow border-foreground p-4 rounded-xl">
       <h2 className="text-2xl font-semibold mb-4">Tasks</h2>
-      <div className={`space-y-2 ${pathname === '/tasks' ? '' : 'h-[200px]'} overflow-auto`}>
+      <div className={`flex flex-col gap-2 ${pathname === '/tasks' ? '' : 'h-[200px]'} overflow-auto`}>
         {tasks.map((task, index) => (
           <div
             key={index}
-            className={`p-2 rounded-lg ${task.is_important ? 'bg-amber-100' : 'bg-gray-100'}`}
+            className={`p-2 rounded-lg ${task.is_important ? 'bg-amber-100' : 'bg-gray-100'} hover:bg-gray-200`}
           >
             <div className="flex justify-between">
               <div>

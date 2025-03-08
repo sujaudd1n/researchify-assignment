@@ -62,7 +62,7 @@ class Command(BaseCommand):
         )
         user3, created = User.objects.get_or_create(
             firebase_uid="random23452",
-            name="green",
+            name="User Green",
             photo="https://picsum.photos/id/17/200/300",
             email="mail@example.com"
         )
@@ -87,14 +87,17 @@ class Command(BaseCommand):
 
         escalations_data = [
             {"title": "There is an issue with this", "subtitle": "Alpha", "created_by": user1},
-            {"title": "There is an issue with that", "subtitle": "Beta", "created_by": user3},
-            {"title": "X is not working", "subtitle": "Sigma", "created_by": user3},
+            {"title": "There is an issue with that", "subtitle": "Beta", "is_important": True, "created_by": user3},
+            {"title": "X is not working", "subtitle": "Sigma", "created_by": user2},
+            {"title": "Timing Issue", "subtitle": "IDK", "created_by": user3},
+            {"title": "Escalation 123", "subtitle": "IDK2", "created_by": user1}
         ]
 
         for escalation_data in escalations_data:
             Escalation.objects.create(
                 title=escalation_data["title"],
                 subtitle=escalation_data["subtitle"],
-                created_by=user,
+                is_important=escalation_data.get("is_important", False),
+                created_by=escalation_data["created_by"],
             )
         self.stdout.write(self.style.SUCCESS("loaded escalation data"))
