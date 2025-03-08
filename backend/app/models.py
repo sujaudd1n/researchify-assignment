@@ -89,3 +89,12 @@ class UserChat(models.Model):
 
     def __str__(self):
         return f"{self.user} - {self.text}"
+
+    def to_json(self):
+        return {
+            "text": self.text,
+            "is_user_message": self.is_user_message,
+            "timestamp": self.timestamp
+        }
+
+

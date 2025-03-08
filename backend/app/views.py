@@ -53,10 +53,15 @@ def login_required(view):
 @method_decorator([csrf_exempt, login_required], name="dispatch")
 class Chat(View):
     def get(self, request, *args, **kwargs):
-        pass
+        uid = request.user["uid"]
+        try:
+            user = User.objects.get(firebase_uid=uid)
+            messages = UserChat.objects.filter(user=user)
+        except Exception as e:
+            messages = []
+        return JsonResponse({"messages": [message.to_json() for message in messages]})
 
     def post(self, request, *args, **kwargs):
-        print(request.user)
         uid = request.user["uid"]
         user, created = User.objects.get_or_create(firebase_uid=uid)
         if created:
@@ -69,9 +74,9 @@ class Chat(View):
 
         UserChat.objects.create(user=user, text=message, is_user_message=True)
         llm_response = get_llm_response(message)
-        UserChat.objects.create(user=user, text=llm_response, is_user_message=False)
+        msg_obj = UserChat.objects.create(user=user, text=llm_response, is_user_message=False)
 
-        return JsonResponse({"message": llm_response})
+        return JsonResponse({"message": msg_obj.to_json()})
 
 
 def get_llm_response(prompt):

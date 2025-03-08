@@ -23,7 +23,7 @@ const quickQuestions = [
 ];
 
 export default function ChatInterface({ user }) {
-  const [messages, setMessages] = useState(msgs);
+  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const chatRef = useRef(null);
@@ -37,19 +37,46 @@ export default function ChatInterface({ user }) {
     if (inputRef) inputRef.current.focus();
   }, [messages]);
 
+  useEffect(() => {
+    if (!user) return;
+    get_history();
+  }, [user]);
+
+  async function get_history() {
+    const idToken = await user.getIdToken();
+    try {
+      const res = await fetch("http://localhost:8000/api/v1/chats", {
+        headers: {
+          Authorization: `Bearer ${idToken}`
+        },
+      })
+      if (res.ok) {
+        const data = await res.json();
+        console.log(data.messages)
+        setMessages(data.messages)
+      }
+      else
+        setMessages([])
+    }
+    catch (err) {
+      console.log(err);
+      setMessages([])
+    }
+  }
+
   async function messageSubmit() {
     setLoading(true);
     let new_messages = [...messages, { text: input, is_user_message: true }];
     setMessages(new_messages);
     setInput('');
     const response = await get_bot_response(input);
-    new_messages = [...new_messages, { text: response, is_user_message: false }];
+    new_messages = [...new_messages, response];
     setMessages(new_messages);
     setLoading(false);
   }
 
   async function get_bot_response(input) {
-    await new Promise(resolve => { setTimeout(resolve, 6000) })
+    // await new Promise(resolve => { setTimeout(resolve, 6000) })
     const idToken = await user.getIdToken();
     try {
       const res = await fetch("http://localhost:8000/api/v1/chats", {
@@ -106,9 +133,12 @@ export default function ChatInterface({ user }) {
         <div className="max-h-[400px] py-10 px-5 overflow-auto" ref={chatRef}>
           {
             messages.map(message => (
-              <p className={`bg-blue-100 mb-2 p-1 rounded max-w-[30dvw]
-                ${message.is_user_message ? 'ml-auto' : ''}`}
-              >{message.text}</p>
+              <p key={message.timestamp} className={`bg-blue-100 mb-2 p-2 pb-4 rounded max-w-[30dvw]
+                ${message.is_user_message ? 'ml-auto' : ''} relative`}
+              >
+                {message.text}
+                <span className="text-xs absolute right-2 bottom-1">{new Date(message.timestamp).toLocaleTimeString()}</span>
+              </p>
             ))
           }
         </div>
