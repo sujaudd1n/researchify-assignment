@@ -21,3 +21,18 @@ export async function get_groups() {
     return []
   }
 }
+
+export async function get_tasks() {
+  try {
+    const res = await fetch(ENDPOINT + "tasks");
+    if (!res.ok)
+      return []
+    const data = await res.json();
+    const tasks = data.data;
+    return tasks;
+  }
+  catch (err) {
+    console.log(err)
+    return []
+  }
+}

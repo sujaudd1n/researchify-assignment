@@ -8,6 +8,12 @@ class Command(BaseCommand):
     help = "Loads static data for user, group, task, and escalation models"
 
     def handle(self, *args, **kwargs):
+        # clear data
+        User.objects.all().delete()
+        Group.objects.all().delete()
+        Task.objects.all().delete()
+        Escalation.objects.all().delete()
+
         # groups data
         groups_data = [
             {
@@ -24,6 +30,16 @@ class Command(BaseCommand):
                 "name": "Design",
                 "icon": "https://picsum.photos/id/82/200/300",
                 "user_count": 16,
+            },
+            {
+                "name": "Research",
+                "icon": "https://picsum.photos/id/59/200/300",
+                "user_count": 6,
+            },
+            {
+                "name": "Programming",
+                "icon": "https://picsum.photos/id/2/200/300",
+                "user_count": 12,
             },
         ]
 

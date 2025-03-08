@@ -12,6 +12,12 @@ class User(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def to_json(self):
+        return {
+            "name": self.name,
+            "photo": self.photo,
+        }
 
 
 class Mention(models.Model):
@@ -49,6 +55,14 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title
+
+    def to_json(self):
+        return {
+            "title": self.title,
+            "is_important": self.is_important,
+            "assigned_to": [user.to_json() for user in self.assigned_to.all()]
+        }
+    
 
 
 class Escalation(models.Model):
