@@ -17,7 +17,7 @@ def get_tasks(request):
 def get_escalations(request):
     return JsonResponse({"data": get_objects(Escalation)})
 
-class Chat(Views):
+class Chat(View):
     def get(self, request, *args, **kwargs):
         pass
 
