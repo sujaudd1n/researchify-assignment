@@ -13,24 +13,16 @@ import {
 } from "lucide-react";
 import { auth } from "@/lib/firebase";
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { useAuth } from "./AuthContext";
+import { useState } from "react";
 
-function handle_sign_in() {
-  const provider = new GoogleAuthProvider();
-  signInWithPopup(auth, provider)
-    .then(result => { console.log("SignIn succeeded.") })
-    .catch(err => { console.log("SignIn Failed.") })
-}
 
-function handle_sign_out() {
-  signOut(auth);
-}
 
-export default function Sidebar({ user, setUser, collapsed, toggleSidebar }) {
-  // onAuthStateChanged(auth, (authUser) => {
-  //   console.log(authUser)
-  //   setUser(authUser)
-  // })
+export default function Sidebar() {
+  const [user, setUser] = useAuth();
+  const [collapsed, setCollapsed] = useState(false);
   const pathname = usePathname();
+
   const urls = [
     { name: "Dashboard", path: "/", icon: <LayoutDashboard className="mr-2" />, notificationCount: 2, disabled: false },
     { name: "Insights", path: "/insights", icon: <TrendingUp className="mr-2" />, notificationCount: 0, disabled: false },
@@ -43,7 +35,7 @@ export default function Sidebar({ user, setUser, collapsed, toggleSidebar }) {
       <span className="w-28 w-68 w-[400px]"></span>
       <div className="flex p-2 justify-between items-center">
         <h2 className={`${collapsed ? 'hidden' : 'block'} text-2xl font-semibold`}>Menu</h2>
-        <button onClick={toggleSidebar}>
+        <button onClick={() => { setCollapsed(!collapsed) }}>
           <span className="text-lg">{collapsed ? <ChevronsRight /> : <ChevronsLeft />}</span>
         </button>
       </div>
@@ -86,4 +78,15 @@ export default function Sidebar({ user, setUser, collapsed, toggleSidebar }) {
       </div>
     </aside >
   );
+}
+
+function handle_sign_in() {
+  const provider = new GoogleAuthProvider();
+  signInWithPopup(auth, provider)
+    .then(result => { console.log("SignIn succeeded.") })
+    .catch(err => { console.log("SignIn Failed.") })
+}
+
+function handle_sign_out() {
+  signOut(auth);
 }

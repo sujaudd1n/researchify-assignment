@@ -5,9 +5,9 @@ import { useState } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 
-export default function ChatInterface({ }) {
+export default function ChatInterface({ user }) {
   const [message, setMessage] = useState('');
-  const user = true;
+  // const user = true;
 
   const quickQuestions = [
     { icon: <Pencil />, text: "what are my tasks due today?" },

@@ -1,9 +1,7 @@
-import { Inter } from 'next/font/google'
 import { Space_Grotesk } from 'next/font/google'
 import CustomLayout from './CustomLayout'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
 const space = Space_Grotesk({ subsets: ['latin'] })
 
 export const metadata = {

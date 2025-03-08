@@ -1,11 +1,14 @@
 "use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useState } from "react";
+import { useAuth } from "./AuthContext";
 
-export default function Header({ user }) {
-    const [name, setName] = useState("Researchify.io");
+export default function Header({ }) {
+    const [user, setUser] = useAuth();
     const [mentions, setMentions] = useState([]);
     const [messageCount, setMessageCount] = useState(0);
+
+    const name = "Researchify.io";
 
     return (
         <header className=" border border-foreground p-5 rounded-xl shadow-sm flex flex-col justify-between gap-5 md:flex-row">

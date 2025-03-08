@@ -11,9 +11,12 @@ import {
 import ChatInterface from "./ChatInterface";
 import { Maximize2 } from "lucide-react";
 import Link from "next/link";
+import { useAuth } from "./AuthContext";
 
 export default function InsightsPanel() {
+  const [user, setUser] = useAuth();
   const pathname = usePathname();
+
   return (
     <div className="flex flex-col border grow border-foreground p-4 rounded-xl relative">
 
@@ -38,7 +41,7 @@ export default function InsightsPanel() {
           </SelectContent>
         </Select>
       </div>
-      <ChatInterface />
+      <ChatInterface user={user} />
     </div>
   );
 }
