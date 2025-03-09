@@ -15,3 +15,6 @@ Live: <https://researchifyassignment.vercel.app/>
 - Backend: Python, Django
 - LLM: Gemini
 - Database: Supabase Cloud PostgreSQL
+
+**Video Walkthrough:**
+A short video where I went through all the requirements: <https://youtu.be/jF4cBXLlcyM>
