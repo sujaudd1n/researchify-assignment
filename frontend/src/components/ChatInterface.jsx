@@ -23,11 +23,10 @@ const quickQuestions = [
   { icon: <CircleHelp />, text: "who has been sick the most?" }
 ];
 
-export default function ChatInterface({ user }) {
+export default function ChatInterface({ user, chatRef }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const chatRef = useRef(null);
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -105,7 +104,7 @@ export default function ChatInterface({ user }) {
       {
         (!Boolean(messages.length) || !user) &&
         <>
-          <div className="py-4">
+          <div className="p-4">
             <div className="mb-4">
               <h3 className="flex flex-col text-2xl font-semibold w-max bg-gradient-to-r from-gray-500 to-green-500 text-transparent bg-clip-text">
                 <span>Hi! John.</span>
@@ -114,7 +113,7 @@ export default function ChatInterface({ user }) {
             </div>
           </div>
 
-          <div className="flex gap-3 mb-6">
+          <div className="flex gap-3 mb-6 p-4">
             {quickQuestions.map((question, index) => (
               <button
                 key={index}
@@ -131,7 +130,7 @@ export default function ChatInterface({ user }) {
       }
       {
         Boolean(messages.length) && user &&
-        <div className="max-h-[300px] px-5 overflow-auto" ref={chatRef}>
+        <div className="shrink-1 px-5 overflow-auto">
           {
             messages.map(message => (
               <p key={message.timestamp} className={`bg-blue-100 mb-2 p-2 pb-5 rounded w-max max-w-[30dvw] min-w-[100px]
@@ -146,7 +145,7 @@ export default function ChatInterface({ user }) {
         </div>
       }
 
-      <div className="flex items-center">
+      <div className="flex items-center sticky p-4 bg-white bottom-0 z-10">
         <Input
           ref={inputRef}
           type="text"
