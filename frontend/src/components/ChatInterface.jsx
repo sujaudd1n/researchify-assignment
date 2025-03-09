@@ -4,6 +4,7 @@ import { CircleHelp, LoaderCircle, Pencil, Send, User } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
+import { marked } from 'marked';
 
 const msgs = [
   { text: "hello", is_user_message: true },
@@ -133,10 +134,11 @@ export default function ChatInterface({ user }) {
         <div className="max-h-[400px] py-10 px-5 overflow-auto" ref={chatRef}>
           {
             messages.map(message => (
-              <p key={message.timestamp} className={`bg-blue-100 mb-2 p-2 pb-4 rounded max-w-[30dvw]
+              <p key={message.timestamp} className={`bg-blue-100 mb-2 p-2 pb-5 rounded w-max max-w-[30dvw] min-w-[100px]
                 ${message.is_user_message ? 'ml-auto' : ''} relative`}
               >
-                {message.text}
+                <span dangerouslySetInnerHTML={{ __html: marked.parse(message.text) }}></span>
+                {/* {message.text} */}
                 <span className="text-xs absolute right-2 bottom-1">{new Date(message.timestamp).toLocaleTimeString()}</span>
               </p>
             ))

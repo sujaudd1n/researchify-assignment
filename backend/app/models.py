@@ -94,7 +94,5 @@ class UserChat(models.Model):
         return {
             "text": self.text,
             "is_user_message": self.is_user_message,
-            "timestamp": self.timestamp
+            "timestamp": self.timestamp,
         }
-
-

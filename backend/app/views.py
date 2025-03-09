@@ -6,6 +6,7 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from .models import *
+from .llm import chat
 
 import firebase_admin
 from firebase_admin import auth, credentials
@@ -74,10 +75,13 @@ class Chat(View):
 
         UserChat.objects.create(user=user, text=message, is_user_message=True)
         llm_response = get_llm_response(message)
-        msg_obj = UserChat.objects.create(user=user, text=llm_response, is_user_message=False)
+        msg_obj = UserChat.objects.create(
+            user=user, text=llm_response, is_user_message=False
+        )
 
         return JsonResponse({"message": msg_obj.to_json()})
 
 
 def get_llm_response(prompt):
-    return f"your message is {prompt}"
+    text =  chat.send_message(prompt).text
+    return text
