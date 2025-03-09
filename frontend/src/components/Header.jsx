@@ -2,6 +2,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
+import { ENDPOINT } from "@/lib/utils";
 
 export default function Header({ }) {
     const [user, setUser] = useAuth();
@@ -14,7 +15,7 @@ export default function Header({ }) {
 
     async function fetch_user_info() {
         try {
-            const res = await fetch("http://localhost:8000/api/v1/user-info");
+            const res = await fetch(ENDPOINT + "user-info");
             const data = await res.json();
             if (res.ok) {
                 const m = data.data.mentions.map(d => d.mentioned_by)

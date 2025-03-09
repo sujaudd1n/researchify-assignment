@@ -5,7 +5,8 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
-const ENDPOINT = "http://localhost:8000/api/v1/"
+// export const ENDPOINT = "http://localhost:8000/api/v1/researchify/"
+export const ENDPOINT = "https://api.sujauddin.me/api/v1/researchify/"
 
 export async function get_resource(name) {
   try {

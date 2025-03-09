@@ -34,7 +34,7 @@ def get_escalations(request):
 
 def user_info(request):
     user1 = User.objects.get(firebase_uid="Animesh29034234")
-    return JsonResponse({"data": user1.to_json_with_mention()})
+    return JsonResponse({"data": user1.to_json_with_mentions()})
 
 
 def login_required(view):

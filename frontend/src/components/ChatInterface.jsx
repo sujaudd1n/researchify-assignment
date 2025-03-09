@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { marked } from 'marked';
+import { ENDPOINT } from '@/lib/utils';
 
 const msgs = [
   { text: "hello", is_user_message: true },
@@ -45,7 +46,7 @@ export default function ChatInterface({ user, chatRef }) {
   async function get_history() {
     const idToken = await user.getIdToken();
     try {
-      const res = await fetch("http://localhost:8000/api/v1/chats", {
+      const res = await fetch(ENDPOINT + "chats", {
         headers: {
           Authorization: `Bearer ${idToken}`
         },
@@ -79,7 +80,7 @@ export default function ChatInterface({ user, chatRef }) {
     // await new Promise(resolve => { setTimeout(resolve, 6000) })
     const idToken = await user.getIdToken();
     try {
-      const res = await fetch("http://localhost:8000/api/v1/chats", {
+      const res = await fetch(ENDPOINT + "chats", {
         method: "post",
         headers: {
           Authorization: `Bearer ${idToken}`
