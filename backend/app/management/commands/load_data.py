@@ -1,6 +1,6 @@
 import json
 from django.core.management.base import BaseCommand
-from app.models import User, Group, Task, Escalation
+from app.models import *
 from django.utils import timezone
 
 
@@ -117,3 +117,7 @@ class Command(BaseCommand):
                 created_by=escalation_data["created_by"],
             )
         self.stdout.write(self.style.SUCCESS("loaded escalation data"))
+
+        Mention.objects.create(mentioned=user1, mentioned_by=user2)
+        Mention.objects.create(mentioned=user1, mentioned_by=user3)
+        self.stdout.write(self.style.SUCCESS("loaded mention data"))

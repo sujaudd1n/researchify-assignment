@@ -36,7 +36,7 @@ export default function TasksPanel() {
 
               {task.assigned_to.length > 0 && (
                 <div className="flex mt-2">
-                  <ProfileGroup size={6} profiles={task.assigned_to.map(contributor => { contributor.url = contributor.photo; return contributor; })} />
+                  <ProfileGroup size={6} profiles={task.assigned_to} />
                 </div>
               )}
             </div>

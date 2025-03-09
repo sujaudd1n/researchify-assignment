@@ -16,8 +16,26 @@ class User(models.Model):
     def to_json(self):
         return {
             "name": self.name,
-            "photo": self.photo,
+            "photoURL": self.photo,
+            "message_count": self.message_count,
         }
+
+    def to_json_with_mentions(self):
+        return {
+            "name": self.name,
+            "photoURL": self.photo,
+            "message_count": self.message_count,
+            "mentions": [mention.to_json() for mention in Mention.objects.all()] # just a simulation
+        }
+
+
+
+    def to_self_json(self):
+        return {
+            "name": self.name,
+            "photoURL": self.photo,
+        }
+
 
 
 class Mention(models.Model):
@@ -30,6 +48,12 @@ class Mention(models.Model):
 
     def __str__(self):
         return self.mentioned
+    
+    def to_json(self):
+        return {
+            "mentioned": self.mentioned.to_self_json(),
+            "mentioned_by": self.mentioned_by.to_self_json(),
+        }
 
 
 class Group(models.Model):

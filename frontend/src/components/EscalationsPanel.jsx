@@ -58,7 +58,7 @@ export default function EscalationsPanel() {
               <p>{escalation.title}</p>
               <div className="flex items-center mt-2">
                 <Avatar className="w-4 h-4 mr-1" title={escalation.created_by.name}>
-                  <AvatarImage src={escalation.created_by.photo} />
+                  <AvatarImage src={escalation.created_by.photoURL} />
                   <AvatarFallback>{escalation.created_by.name.slice(0, 2)}</AvatarFallback>
                 </Avatar>
                 <span className="text-xs text-gray-500">{escalation.created_by.name}</span>

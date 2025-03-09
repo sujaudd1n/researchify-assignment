@@ -1,12 +1,34 @@
 "use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
 
 export default function Header({ }) {
     const [user, setUser] = useAuth();
     const [mentions, setMentions] = useState([]);
     const [messageCount, setMessageCount] = useState(0);
+
+    useEffect(() => {
+        fetch_user_info();
+    }, [user]);
+
+    async function fetch_user_info() {
+        try {
+            const res = await fetch("http://localhost:8000/api/v1/user-info");
+            const data = await res.json();
+            if (res.ok) {
+                const m = data.data.mentions.map(d => d.mentioned_by)
+                console.log(m)
+                setMentions(m);
+                setMessageCount(data.data.message_count)
+            }
+            else throw new Error()
+
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
 
     const name = "Researchify.io";
 
@@ -26,7 +48,7 @@ export default function Header({ }) {
 
             <div className="flex flex-col text-sm max-w-[300px]">
                 <div className="flex">
-                    <ProfileGroup size={10} profiles={mentions} />
+                    <ProfileGroup size={8} profiles={mentions} />
                     {Boolean(mentions.length) && <p className="self-end">...</p>}
                     <span className="ml-auto text-xs p-1 py-1 self-center border rounded">@ {mentions.length}</span>
                 </div>
@@ -41,8 +63,8 @@ export function ProfileGroup({ size, profiles }) {
         <div className="flex -space-x-2 mr-2">
             {profiles.map((profile, idx) => (
                 <Avatar key={idx} className={`w-${size}10 h-${size}`} title={profile.name}>
-                    <AvatarImage src={profile.url} />
-                    <AvatarFallback>{profile.alt}</AvatarFallback>
+                    <AvatarImage src={profile.photoURL} />
+                    <AvatarFallback>{profile.name.slice(0,2).toUpperCase()}</AvatarFallback>
                 </Avatar>
             ))}
 

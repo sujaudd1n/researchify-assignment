@@ -32,6 +32,10 @@ def get_tasks(request):
 def get_escalations(request):
     return JsonResponse({"data": get_objects(Escalation)})
 
+def user_info(request):
+    user1 = User.objects.get(firebase_uid="Animesh29034234")
+    return JsonResponse({"data": user1.to_json_with_mention()})
+
 
 def login_required(view):
     @wraps(view)
