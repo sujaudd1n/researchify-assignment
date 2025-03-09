@@ -11,7 +11,7 @@ export default function CustomLayout({ children }) {
         <AuthProvider>
             <div className="flex flex-col m-[max(5px,min(5dvw,100px))]">
                 <Header />
-                <div className="mt-5 flex gap-5 h-[90dvh]">
+                <div className="mt-5 flex gap-5 min-h-[90dvh]">
                     <Sidebar />
                     {children}
                 </div>

@@ -113,7 +113,7 @@ export default function ChatInterface({ user, chatRef }) {
             </div>
           </div>
 
-          <div className="flex gap-3 mb-6 p-4">
+          <div className="flex flex-wrap gap-3 mb-6 p-4">
             {quickQuestions.map((question, index) => (
               <button
                 key={index}
