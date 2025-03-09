@@ -26,7 +26,7 @@ industries and make research insights accessible to all.
 Ditch the tedious research methods and join us as we pioneer a new era in data-driven
 excellence 🚀 #ResearchifyRevolution #KnowledgeForAll"
 """
-api_key = os.environ.get("GEMINI_API_KEY")
+api_key = os.environ.get("GEMINI_KEY")
 
 client = genai.Client(api_key=api_key)
 chat = client.chats.create(

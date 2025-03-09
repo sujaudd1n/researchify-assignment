@@ -101,7 +101,7 @@ export default function ChatInterface({ user }) {
 
 
   return (
-    <div className='mt-auto'>
+    <div className='mt-auto flex flex-col gap-2'>
       {
         (!Boolean(messages.length) || !user) &&
         <>
@@ -131,7 +131,7 @@ export default function ChatInterface({ user }) {
       }
       {
         Boolean(messages.length) && user &&
-        <div className="max-h-[400px] py-10 px-5 overflow-auto" ref={chatRef}>
+        <div className="max-h-[300px] px-5 overflow-auto" ref={chatRef}>
           {
             messages.map(message => (
               <p key={message.timestamp} className={`bg-blue-100 mb-2 p-2 pb-5 rounded w-max max-w-[30dvw] min-w-[100px]
