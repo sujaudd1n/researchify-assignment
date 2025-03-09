@@ -11,7 +11,6 @@ export default function EscalationsPanel() {
   useEffect(() => {
     async function f() {
       const escalations = await get_escalations();
-      console.log(escalations)
       setEscalations(escalations);
     }
     f();

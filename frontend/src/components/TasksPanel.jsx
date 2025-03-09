@@ -13,7 +13,6 @@ export default function TasksPanel() {
   useEffect(() => {
     async function f() {
       const tasks = await get_tasks();
-      console.log(tasks)
       setTasks(tasks);
     }
     f();

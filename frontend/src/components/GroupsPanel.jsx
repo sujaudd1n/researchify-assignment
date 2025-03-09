@@ -11,7 +11,6 @@ export default function GroupsPanel() {
   useEffect(() => {
     async function f() {
       const groups = await get_groups();
-      console.log(groups)
       setGroups(groups);
     }
     f();

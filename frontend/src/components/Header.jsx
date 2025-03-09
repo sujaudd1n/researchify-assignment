@@ -19,7 +19,6 @@ export default function Header({ }) {
             const data = await res.json();
             if (res.ok) {
                 const m = data.data.mentions.map(d => d.mentioned_by)
-                console.log(m)
                 setMentions(m);
                 setMessageCount(data.data.message_count)
             }

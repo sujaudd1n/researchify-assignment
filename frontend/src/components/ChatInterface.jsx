@@ -53,7 +53,6 @@ export default function ChatInterface({ user, chatRef }) {
       })
       if (res.ok) {
         const data = await res.json();
-        console.log(data.messages)
         setMessages(data.messages)
       }
       else
